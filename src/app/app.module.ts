@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppComponent } from './app.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -20,6 +21,7 @@ import { HomeComponent } from './home/home.component';
       { path: '', component: HomeComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
     ]),
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
