@@ -10,6 +10,7 @@ export class NavbarComponent {
   @Input('navbar-id') navbarId: string = "navbar"
   @Input() links: INavbarLink[];
   @Input('brand-link') brandLink: INavbarLink;
+  @Input('fixed-top') fixedToTop: boolean;
 
   isComplexLink(link: INavbarLink) {
     return Array.isArray(link.routerLink);

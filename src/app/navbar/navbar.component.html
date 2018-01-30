@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" [class.fixed-top]=fixedToTop>
   <a *ngIf="brandLink.routerLink" class="navbar-brand" [routerLink]="brandLink.routerLink">{{brandLink.text}}</a>
   <a *ngIf="brandLink.routerLink == null && brandLink.link" class="navbar-brand" [href]="brandLink.link">{{brandLink.text}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -28,8 +28,8 @@
 
 <ng-template #complexLink let-link='link'>
   <div ngbDropdown class="d-inline-block">
-    <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>{{link.text}}</a>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <a class="nav-link dropdown-toggle" unselectable="on" id="dropdownBasic1" ngbDropdownToggle>{{link.text}}</a>
+    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
       <ng-container *ngFor="let dropdownLink of link.routerLink">
         <button *ngIf="dropdownLink.routerLink" [routerLink]="dropdownLink.routerLink" class="dropdown-item">{{dropdownLink.text}}</button>
         <a *ngIf="!dropdownLink.routerLink && dropdownLink.link" [href]="dropdownLink.link" class="dropdown-item">{{dropdownLink.text}}</a>

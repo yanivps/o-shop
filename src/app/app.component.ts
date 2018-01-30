@@ -14,9 +14,9 @@ export class AppComponent {
       { text: "Shopping Cart", routerLink: "shopping-cart" },
       {
         text: "Username", routerLink: [
-          { text: "My Orders", routerLink: "/" },
-          { text: "Manage Orders", routerLink: "/" },
-          { text: "Manage Products", routerLink: "/" },
+          { text: "My Orders", routerLink: "/my/orders" },
+          { text: "Manage Orders", routerLink: "/admin/orders" },
+          { text: "Manage Products", routerLink: "/admin/products" },
           { text: "Log Out", routerLink: "/" }
         ]
       }
