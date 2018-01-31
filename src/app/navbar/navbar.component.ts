@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { INavbarLink } from './navbar-link';
+import { AuthService } from '../services/auth.service';
+import { IUser } from '../models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +9,12 @@ import { INavbarLink } from './navbar-link';
 })
 export class NavbarComponent {
   @Input('navbar-id') navbarId: string = "navbar"
-  @Input() links: INavbarLink[];
-  @Input('brand-link') brandLink: INavbarLink;
   @Input('fixed-top') fixedToTop: boolean;
+  user: IUser;
 
-  isComplexLink(link: INavbarLink) {
-    return Array.isArray(link.routerLink);
+  constructor(public authService: AuthService) { }
+
+  ngOnInit() {
+    this.authService.user$.subscribe(user => this.user = user);
   }
 }
