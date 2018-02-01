@@ -1,11 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~bootstrap/dist/css/bootstrap.css";
+/* @import "~font-awesome/css/font-awesome.css"; */
 body {
   padding-top: 80px;
+  font-family: sans-serif
 }
 
-.dropdown-toggle {
+.data-table-row, .column-header, .dropdown-toggle {
   -webkit-user-select: none;
   /* Safari */
   -moz-user-select: none;
@@ -16,6 +18,14 @@ body {
   /* Standard */
 }
 
+#products-grid .refresh-button, #products-grid .column-selector-button {
+  display: none;
+}
+
 .dropdown a {
   cursor: pointer;
+}
+
+.form-control {
+  padding: .5rem .75rem;
 }

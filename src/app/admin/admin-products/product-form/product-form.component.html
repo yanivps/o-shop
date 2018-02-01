@@ -1,0 +1,61 @@
+<i *ngIf='isLoading' class="fa fa-spinner fa-spin fa-3x"></i>
+<div class="row">
+  <!-- Form -->
+  <div class="col-md-6">
+    <form>
+      <div class="form-group">
+        <label for="titleInput">Title</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="titleInput"
+          name="title"
+          [(ngModel)]="product.title">
+      </div>
+      <div class="form-group">
+        <label for="priceInput">Price</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+          <div class="input-group-addon">$</div>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="priceInput" 
+            aria-describedby="inputGroupPrice"
+            name="price"
+            [(ngModel)]="product.price">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="categoryInput">Category</label>
+        <select [(ngModel)]='product.categoryId' name='category' class="form-control" id="categoryInput">
+          <option value=""></option>
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="imageUrlInput">Image URL</label>
+        <input 
+          id="imageUrlInput"
+          type="text"
+          class="form-control"
+          [(ngModel)]='product.imageUrl'
+          name="imageUrlInput"
+          #imageUrlInput='ngModel'
+          (keyup)="imageUrlChanged(imageUrlInput)">
+      </div>
+      <button class="btn btn-primary" (click)='saveProduct()'>Save</button>
+      <button *ngIf="currentProductId" class="btn btn-danger" (click)='deleteProduct()'>Delete</button>
+    </form>
+  </div>
+
+  <!-- Card -->
+  <div class="col-md-6">
+    <div *ngIf="product.title || product.price || imageUrl" class="card" style="width: 20rem;">
+      <img class="card-img-top" [src]='imageUrl ? imageUrl : ""' >
+      <div class="card-body">
+        <h4 class="card-title">{{product.title}}</h4>
+        <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
+      </div>
+    </div>
+  </div>
+</div>

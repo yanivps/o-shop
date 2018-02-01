@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { DataTableModule } from 'angular-4-data-table';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
@@ -22,7 +23,10 @@ import { environment } from '../environments/environment';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
+import { ProductService } from './product.service';
+import { ProductFormComponent } from './admin/admin-products/product-form/product-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { UserService } from './user.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,17 +54,22 @@ import { UserService } from './user.service';
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
       { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
     ]),
     NgbModule.forRoot(),
+    DataTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FormsModule
   ],
   providers: [
     AuthService, 
     AuthGuard,
     AdminAuthGuard,
-    UserService
+    UserService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

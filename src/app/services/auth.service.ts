@@ -9,7 +9,7 @@ import "rxjs/add/operator/switchMap";
 import "rxjs/add/observable/of";
 import { IAuthUser } from '../models/auth-user';
 import { IUser } from '../models/user';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AuthService {
