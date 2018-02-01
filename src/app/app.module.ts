@@ -24,9 +24,11 @@ import { NoAccessComponent } from './no-access/no-access.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { UserService } from './services/user.service';
-import { ProductService } from './product.service';
+import { ProductService } from './services/product.service';
+import { CategoryService } from './services/category.service';
 import { ProductFormComponent } from './admin/admin-products/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
+import { CustomFormsModule } from 'ng2-validation'
 
 @NgModule({
   declarations: [
@@ -53,23 +55,25 @@ import { FormsModule } from '@angular/forms';
       { path: 'no-access', component: NoAccessComponent },
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
       { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
-      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
     ]),
     NgbModule.forRoot(),
     DataTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    CustomFormsModule
   ],
   providers: [
     AuthService, 
     AuthGuard,
     AdminAuthGuard,
     UserService,
-    ProductService
+    ProductService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,40 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataTableResource } from 'angular-4-data-table';
 import { IProduct } from '../../models/product';
-import { ProductService } from '../../product.service';
+import { ProductService } from '../../services/product.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-admin-products',
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-export class AdminProductsComponent implements OnInit {
+export class AdminProductsComponent implements OnInit, OnDestroy {
   products: IProduct[];
   items: IProduct[] = [];
-  itemCount = 0;
+  itemCount: number;
   itemResource: DataTableResource<IProduct>;
   searchString: string = '';
+  productsListSubscription: Subscription;
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productService.list()
+    this.productsListSubscription = this.productService.list()
       .subscribe(products => {
         this.products = products;
-        this.itemCount = products.length;
-        this.itemResource = new DataTableResource(products)
-        this.itemResource.query({ limit: 10, offset: 0 }).then(items => this.items = items);
+        this.initializeTable(products);
       })
   }
 
-  filter(params) {
-    if (this.searchString == null)
-      return;
+  private initializeTable(products: IProduct[]) {
+    this.itemCount = products.length;
+    this.itemResource = new DataTableResource(products)
+    this.itemResource.query({ limit: 10, offset: 0 }).then(items => this.items = items);
+  }
+  ngOnDestroy() {
+    if (this.productsListSubscription) this.productsListSubscription.unsubscribe
+  }
 
-    this.items = this.products.filter(
+  filter() {
+    let filteredItems = this.products.filter(
       item => item.title.toLowerCase().indexOf(this.searchString.toLowerCase()) != -1
     );
-    this.itemCount = this.items.length;
-    this.reloadItems(params);
+    this.initializeTable(filteredItems);
   }
 
   reloadItems(params) {

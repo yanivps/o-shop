@@ -1,5 +1,5 @@
-<button class="btn btn-primary mb-3" routerLink="/admin/products/new">New Product</button>
-<input type="text" class="form-control" [(ngModel)]='searchString' (keyup)='filter(dt.displayParams)'  placeholder="Search...">
+<a class="btn btn-primary mb-3" routerLink="/admin/products/new">New Product</a>
+<input type="text" class="form-control" [(ngModel)]='searchString' (keyup)='dt.page = 1; filter()'  placeholder="Search...">
 
 <div class="mb-5">
   <data-table 

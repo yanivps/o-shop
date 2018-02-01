@@ -2,56 +2,83 @@
 <div class="row">
   <!-- Form -->
   <div class="col-md-6">
-    <form>
+    <form #f="ngForm" (ngSubmit)='saveProduct()'>
       <div class="form-group">
-        <label for="titleInput">Title</label>
+        <label for="title">Title</label>
         <input 
           type="text" 
           class="form-control" 
-          id="titleInput"
+          id="title"
           name="title"
-          [(ngModel)]="product.title">
+          #title='ngModel'
+          [(ngModel)]="product.title"
+          required>
+          <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+            Title is required
+          </div>
       </div>
       <div class="form-group">
-        <label for="priceInput">Price</label>
+        <label for="price">Price</label>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
           <div class="input-group-addon">$</div>
           <input 
-            type="text" 
+            type="number" 
             class="form-control" 
-            id="priceInput" 
+            id="price" 
             aria-describedby="inputGroupPrice"
             name="price"
-            [(ngModel)]="product.price">
+            #price='ngModel'
+            [(ngModel)]="product.price"
+            required
+            min='0'>
+        </div>
+        <div *ngIf="price.touched && price.invalid" class="alert alert-danger">
+          <div *ngIf="price.errors.required">Price is required</div>
+          <div *ngIf="price.errors.min">Price should be 0 or higher</div>
         </div>
       </div>
       <div class="form-group">
-        <label for="categoryInput">Category</label>
-        <select [(ngModel)]='product.categoryId' name='category' class="form-control" id="categoryInput">
+        <label for="category">Category</label>
+        <select 
+          [(ngModel)]='product.category' 
+          name='category' 
+          class="form-control" 
+          id="category"
+          #category='ngModel'
+          required>
           <option value=""></option>
-          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          <option *ngFor="let category of categories" [value]="category.$key">{{category.name}}</option>
         </select>
+        <div *ngIf="category.touched && category.invalid" class="alert alert-danger">
+          Category is required
+        </div>
       </div>
       <div class="form-group">
-        <label for="imageUrlInput">Image URL</label>
+        <label for="imageUrl">Image URL</label>
         <input 
-          id="imageUrlInput"
+          id="imageUrl"
           type="text"
           class="form-control"
           [(ngModel)]='product.imageUrl'
-          name="imageUrlInput"
-          #imageUrlInput='ngModel'
-          (keyup)="imageUrlChanged(imageUrlInput)">
+          name="imageUrl"
+          #imageUrl='ngModel'
+          (keyup)="imageUrlChanged(imageUrl)"
+          required
+          url>
+          <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger">
+            <div *ngIf="imageUrl.errors.required">Image URL is required</div>
+            <div *ngIf="imageUrl.errors.url">Please enter a valid URL</div>
+          </div>
       </div>
-      <button class="btn btn-primary" (click)='saveProduct()'>Save</button>
-      <button *ngIf="currentProductId" class="btn btn-danger" (click)='deleteProduct()'>Delete</button>
+      <button class="btn btn-primary" [disabled]='f.invalid'>Save</button>
+      <button type="button" *ngIf="currentProductId" class="btn btn-danger" (click)='deleteProduct()'>Delete</button>
     </form>
   </div>
 
   <!-- Card -->
   <div class="col-md-6">
-    <div *ngIf="product.title || product.price || imageUrl" class="card" style="width: 20rem;">
-      <img class="card-img-top" [src]='imageUrl ? imageUrl : ""' >
+    <div *ngIf="product.title || product.price || cardImageUrl" class="card" style="width: 20rem;">
+      <img class="card-img-top" [src]='cardImageUrl' *ngIf='cardImageUrl' >
       <div class="card-body">
         <h4 class="card-title">{{product.title}}</h4>
         <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
