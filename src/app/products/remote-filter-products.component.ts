@@ -4,16 +4,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Observable } from 'rxjs/Observable';
 import { IProduct } from '../models/product';
-import "rxjs/add/operator/switchMap";
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
+  selector: 'app-remote-filter-products',
+  templateUrl: './remote-filter-products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
-  products: IProduct[];
-  filteredProducts: IProduct[];
+export class RemoteFilterProductsComponent implements OnInit {
+  products$;
   category;
 
   constructor(
@@ -22,17 +20,12 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productService.list()
-      .switchMap(products => {
-        this.products = products;
-        return this.route.queryParamMap;
-      })
+    this.route.queryParamMap
       .subscribe(queryParam => {
         this.category = queryParam.get("category");
-
-        this.filteredProducts = this.category ?
-          this.products.filter(p => p.category == this.category) :
-          this.products;
+        this.products$ = this.category ?
+          this.productService.query({ key: 'category', value: this.category }) :
+          this.productService.list();
       })
   }
 }
