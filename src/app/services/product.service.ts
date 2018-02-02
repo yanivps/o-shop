@@ -13,6 +13,15 @@ export class ProductService {
     return this.db.list(this._baseUrl);
   }
 
+  query(params): Observable<IProduct[]> {
+    return this.db.list(this._baseUrl, {
+      query: {
+        orderByChild: params.key,
+        equalTo: params.value
+      }
+    });
+  }
+
   get(productId): Observable<IProduct> {
     return this.db.object(this._baseUrl + productId);
   }

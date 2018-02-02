@@ -49,7 +49,7 @@ import { CustomFormsModule } from 'ng2-validation'
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
+      { path: '', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent },

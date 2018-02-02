@@ -1,3 +1,41 @@
-<p>
-  products works!
-</p>
+<div class="row">
+  <div class="col-md-3">
+    <div *ngIf="categories$ | async as categories" id="categoriesCard" class="card categoriesCard">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item active" [class.active]="!selectedCategoryId" routerLink="/">All Categories</li>
+        <li *ngFor="let category of categories" class="list-group-item" [class.active]="category.$key == selectedCategoryId" routerLink="/"
+          [queryParams]="{category: category.$key}">
+          {{category.name}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      <!-- Products of category -->
+      <ng-template #loading>
+        <i class="fa fa-spinner fa-spin fa-3x"></i>
+      </ng-template>
+      <ng-template #noProducts>
+        <h1>No items</h1>
+      </ng-template>
+      <ng-container *ngIf="products$ | async as products; else loading">
+        <ng-container *ngIf="products.length; else noProducts">
+          <div *ngFor="let product of products" class="col-md-6">
+            <div class="product-tile">
+              <div class="card">
+                <img class="card-img-top" [src]='product.imageUrl'>
+                <div class="card-body">
+                  <h4 class="card-title">{{product.title}}</h4>
+                  <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+
+    </div>
+  </div>
+</div>
