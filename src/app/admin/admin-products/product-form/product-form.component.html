@@ -63,6 +63,7 @@
           name="imageUrl"
           #imageUrl='ngModel'
           (keyup)="imageUrlChanged(imageUrl)"
+          (change)="imageUrlChanged(imageUrl)"
           required
           url>
           <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger">
