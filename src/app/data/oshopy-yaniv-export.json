@@ -1,0 +1,130 @@
+{
+  "productCategories" : {
+    "bread" : {
+      "name" : "Bread"
+    },
+    "dairy" : {
+      "name" : "Dairy"
+    },
+    "fruits" : {
+      "name" : "Fruits"
+    },
+    "seasoning" : {
+      "name" : "Seasoning and Spices"
+    },
+    "vegetables" : {
+      "name" : "Vegetables"
+    }
+  },
+  "products" : {
+    "-L4Hh9Fbgxt7wub_t-_n" : {
+      "category" : "bread",
+      "imageUrl" : "https://www.winespectrum.com/wp-content/uploads/2016/11/Bread.jpg",
+      "price" : 3,
+      "title" : "Freshly Baked Bread"
+    },
+    "-L4Hh9Fds-rGty_YkRuv" : {
+      "category" : "seasoning",
+      "imageUrl" : "http://caviarcentre.com/wp-content/uploads/2012/10/saffron-22-500x450.jpg",
+      "price" : 3,
+      "title" : "Saffron"
+    },
+    "-L4Hh9Fds-rGty_YkRuw" : {
+      "category" : "vegetables",
+      "imageUrl" : "https://www.almanac.com/sites/default/files/image_nodes/spinach-leaves.jpg",
+      "price" : 2.5,
+      "title" : "Spinach"
+    },
+    "-L4Hh9Fds-rGty_YkRux" : {
+      "category" : "vegetables",
+      "imageUrl" : "https://www.almanac.com/sites/default/files/styles/primary_image_in_article/public/images/tomatoplant.jpg?itok=KJNBeA6X",
+      "price" : 2.5,
+      "title" : "Tomato"
+    },
+    "-L4Hh9Fds-rGty_YkRuy" : {
+      "category" : "fruits",
+      "imageUrl" : "https://sc01.alicdn.com/kf/UT8CVb1X.RXXXagOFbXW/Best-fresh-apple-fruit-for-sale.jpg",
+      "price" : 2,
+      "title" : "Apple"
+    },
+    "-L4Hh9Feb7AoFC5L_Lza" : {
+      "category" : "fruits",
+      "imageUrl" : "http://cdn1.girlgonegourmet.com/wp-content/uploads/2016/06/Peach-Hand-Pies-1.jpg",
+      "price" : 2,
+      "title" : "Peach"
+    },
+    "-L4Hh9Feb7AoFC5L_Lzb" : {
+      "category" : "fruits",
+      "imageUrl" : "http://ghk.h-cdn.co/assets/17/50/1600x800/landscape-1513015699-red-green-grapes.jpg",
+      "price" : 2,
+      "title" : "Grape"
+    },
+    "-L4Hh9Feb7AoFC5L_Lzc" : {
+      "category" : "fruits",
+      "imageUrl" : "https://www.almanac.com/sites/default/files/styles/primary_image_in_article/public/image_nodes/strawberries-1.jpg?itok=oDOmkQK-",
+      "price" : 1.95,
+      "title" : "Strawberry"
+    },
+    "-L4Hh9Feb7AoFC5L_Lzd" : {
+      "category" : "vegetables",
+      "imageUrl" : "http://indiaphile.info/wp-content/uploads/2014/02/tandooricauliflower-1223.jpg",
+      "price" : 1.75,
+      "title" : "Cauliflower"
+    },
+    "-L4Hh9FfRwl0IGwazKhC" : {
+      "category" : "fruits",
+      "imageUrl" : "https://www.rd.com/wp-content/uploads/2017/08/Avocados-Are-About-to-Get-Ridiculously-More-Expensive_263066297_Nataliya-Arzamasova-1024x683.jpg",
+      "price" : 1.75,
+      "title" : "Avocado"
+    },
+    "-L4Hh9FfRwl0IGwazKhD" : {
+      "category" : "bread",
+      "imageUrl" : "https://d2gk7xgygi98cy.cloudfront.net/8-3-large.jpg",
+      "price" : 1.25,
+      "title" : "Baguette Bread"
+    },
+    "-L4Hh9FfRwl0IGwazKhE" : {
+      "category" : "fruits",
+      "imageUrl" : "https://img.purch.com/h/1000/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA2NS8xNDkvb3JpZ2luYWwvYmFuYW5hcy5qcGc=",
+      "price" : 1.25,
+      "title" : "Banana"
+    },
+    "-L4Hh9FfRwl0IGwazKhF" : {
+      "category" : "bread",
+      "imageUrl" : "http://wholesomemommy.com/wp-content/uploads/2010/05/bagels1.jpg",
+      "price" : 1,
+      "title" : "Bagel Bread"
+    },
+    "-L4Hh9FfRwl0IGwazKhG" : {
+      "category" : "vegetables",
+      "imageUrl" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAeYF5nuL1JgeUCyyGczaYRtrqEhfQTkzfHAJFRRRxLVqS91Yv",
+      "price" : 1,
+      "title" : "Lettuce"
+    },
+    "-L4Hh9Fgh2_3unniQgj2" : {
+      "category" : "seasoning",
+      "imageUrl" : "https://img.aws.livestrongcdn.com/ls-article-image-640/ds-photo/getty/article/64/99/158886434.jpg",
+      "price" : 0.75,
+      "title" : "Ground Turmeric"
+    },
+    "-L4Hh9Fgh2_3unniQgj3" : {
+      "category" : "seasoning",
+      "imageUrl" : "http://maxpixel.freegreatpicture.com/static/photo/640/Bakery-Cinnamon-Stick-Christmas-Cinnamon-Spice-1027958.jpg",
+      "price" : 0.5,
+      "title" : "Cinamon Sticks"
+    },
+    "-L4Hh9Fgh2_3unniQgj4" : {
+      "category" : "seasoning",
+      "imageUrl" : "http://cdn2.stylecraze.com/wp-content/uploads/2013/05/266-amazing-benefits-of-coriander-seeds_310106699.jpg",
+      "price" : 0.5,
+      "title" : "Coriander Seeds"
+    }
+  },
+  "users" : {
+    "S18UkXHxycOwdEuvvg8a3CBWLFk1" : {
+      "email" : "yanivps@gmail.com",
+      "isAdmin" : true,
+      "name" : "Yaniv Pinchas"
+    }
+  }
+}
