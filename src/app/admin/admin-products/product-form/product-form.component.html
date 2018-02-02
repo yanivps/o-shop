@@ -59,7 +59,7 @@
           id="imageUrl"
           type="text"
           class="form-control"
-          [(ngModel)]='product.imageUrl'
+          [(ngModel)]="cardImageUrl"
           name="imageUrl"
           #imageUrl='ngModel'
           (keyup)="imageUrlChanged(imageUrl)"
@@ -71,18 +71,14 @@
           </div>
       </div>
       <button class="btn btn-primary" [disabled]='f.invalid'>Save</button>
-      <button type="button" *ngIf="currentProductId" class="btn btn-danger" (click)='deleteProduct()'>Delete</button>
+      <button type="button" *ngIf="productId" class="btn btn-danger" (click)='deleteProduct()'>Delete</button>
     </form>
   </div>
 
   <!-- Card -->
-  <div class="col-md-6">
-    <div *ngIf="product.title || product.price || cardImageUrl" class="card" style="width: 20rem;">
-      <img class="card-img-top" [src]='cardImageUrl' *ngIf='cardImageUrl' >
-      <div class="card-body">
-        <h4 class="card-title">{{product.title}}</h4>
-        <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
-      </div>
-    </div>
+  <div class="col-md-4">
+    <product-card 
+      [product]="product"
+      [show-actions]="false"></product-card>
   </div>
 </div>

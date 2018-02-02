@@ -31,14 +31,6 @@ body {
   padding: .5rem .75rem;
 }
 
-#categoriesCard li:hover:not(.active) {
-  background: #f8f7f7;
-}
-
-.card .list-group-item {
-  cursor: pointer;
-}
-
 .product-tile {
   margin-bottom: 30px;
 }

@@ -1,0 +1,19 @@
+<div 
+  *ngIf="categories$ | async as categories" 
+  id="categoriesCard" 
+  class="card categoriesCard">
+  <div class="list-group list-group-flush">
+    <a 
+      class="list-group-item list-group-item-action" 
+      [class.active]="!category" 
+      routerLink="/">All Categories</a>
+    <a 
+      *ngFor="let c of categories" 
+      class="list-group-item list-group-item-action" 
+      [class.active]="c.$key === category" 
+      routerLink="/"
+      [queryParams]="{category: c.$key}">
+      {{c.name}}
+    </a>
+  </div>
+</div>

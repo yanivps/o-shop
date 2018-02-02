@@ -9,7 +9,7 @@ export class CategoryService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  listCategories(): Observable<IProductCategory[]> {
+  list(): Observable<IProductCategory[]> {
     return this.db.list(this._baseUrl, {
       query: {
         orderByChild: 'name'

@@ -15,9 +15,9 @@ import { CategoryService } from '../../../services/category.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
-  cardImageUrl: string = '';
+  cardImageUrl: string;
   product: Product = new Product();
-  currentProductId: string;
+  productId: string;
   categories: IProductCategory[];
   isLoading: boolean;
   private _imageUrlChangeSubscription: Subscription;
@@ -29,13 +29,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _productService: ProductService,
     private _categoryService: CategoryService) {
-      this.currentProductId = this._route.snapshot.paramMap.get('id');
+      this.productId = this._route.snapshot.paramMap.get('id');
     }
 
   ngOnInit() {
     // New product
-    if (!this.currentProductId) {
-      this._categoriesSubscription = this._categoryService.listCategories()
+    if (!this.productId) {
+      this._categoriesSubscription = this._categoryService.list()
         .subscribe(categories => this.categories = categories);
       return;
     }
@@ -43,17 +43,15 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     // Edit product
     this.isLoading = true;
     this._productsAndCategoriesSubscription = Observable.combineLatest(
-      this._productService.get(this.currentProductId),
-      this._categoryService.listCategories()
+      this._productService.get(this.productId),
+      this._categoryService.list()
     ).subscribe(combined => {
       let product = combined[0];
       let categories = combined[1];
 
       this.cardImageUrl = product.imageUrl;
       this.product = product;
-
       this.categories = categories;
-
       this.isLoading = false;
     });
   }
@@ -66,23 +64,24 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   imageUrlChanged(imageUrl: NgModel) {
     if (this._imageUrlChangeSubscription || imageUrl.invalid) return;
-    
-    this.cardImageUrl = imageUrl.value;
+
+    this.product.imageUrl = imageUrl.value;
     this._imageUrlChangeSubscription = imageUrl.valueChanges
       .debounceTime(500)
-      .subscribe(value => imageUrl.valid ? this.cardImageUrl = value : this.cardImageUrl = '');
+      .subscribe(value => imageUrl.valid ? this.product.imageUrl = value : this.product.imageUrl = '');
   }
 
   deleteProduct() {
     if (!confirm("Are you sure you want to delete " + this.product.title)) return;
     
-    this._productService.delete(this.currentProductId);
+    this._productService.delete(this.productId);
     this._router.navigate(['/admin/products'])
   }
 
   saveProduct() {
-    if (this.currentProductId) {
-      this._productService.update(this.currentProductId, this.product);
+    this.product.imageUrl = this.cardImageUrl;
+    if (this.productId) {
+      this._productService.update(this.productId, this.product);
     } else {
       this._productService.create(this.product);
     }

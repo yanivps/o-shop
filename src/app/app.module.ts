@@ -28,7 +28,9 @@ import { ProductService } from './services/product.service';
 import { CategoryService } from './services/category.service';
 import { ProductFormComponent } from './admin/admin-products/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
-import { CustomFormsModule } from 'ng2-validation'
+import { CustomFormsModule } from 'ng2-validation';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component'
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { CustomFormsModule } from 'ng2-validation'
     LoginComponent,
     NoAccessComponent,
     ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,
