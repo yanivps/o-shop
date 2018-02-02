@@ -3,13 +3,10 @@
     <product-filter [category]="category"></product-filter>
   </div>
   <div class="col-md-9">
-    <ng-template #loading>
-      <i class="fa fa-spinner fa-spin fa-3x"></i>
-    </ng-template>
     <ng-template #noProducts>
       <h1>No items</h1>
     </ng-template>
-    <ng-container *ngIf="filteredProducts; else loading">
+    <ng-container *ngIf="filteredProducts">
       <ng-container *ngIf="filteredProducts.length; else noProducts">
         <div class="row">
           <div *ngFor="let product of filteredProducts" class="col-md-6">
