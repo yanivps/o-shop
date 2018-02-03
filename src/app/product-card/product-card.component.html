@@ -4,14 +4,24 @@
     <h4 class="card-title">{{product.title}}</h4>
     <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
   </div>
-  <div class="card-footer">
-    <div *ngIf="item$ | async as item; else singleButton">
-      <button (click)="removeFromCart(product)" class="cart-adder btn btn-primary float-left">-</button>      
-        {{item.quantity}} in cart
-      <button (click)="addToCart(product)" class="cart-adder btn btn-primary float-right">+</button>      
-    </div>
+  <div *ngIf="showActions" class="card-footer">
+    <ng-container *ngIf="cartItem$ | async as cartItem; else singleButton">
+      <div *ngIf="cartItem.quantity; else singleButton">
+        <div class="row no-gutters">
+          <div class="col-2">
+            <button (click)="removeOneFromCart()" class="btn btn-secondary btn-block">-</button>
+          </div>
+          <div class="col text-center">
+             {{cartItem.quantity}} in cart
+          </div>
+          <div class="col-2">
+            <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
     <ng-template #singleButton>
-      <button *ngIf="showActions" class="btn btn-primary btn-block" (click)='addToCart(product)'>Add to Cart</button>
+      <button class="btn btn-secondary btn-block" (click)='addToCart()'>Add to Cart</button>
     </ng-template>
   </div>
 </div>

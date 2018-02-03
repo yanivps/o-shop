@@ -12,22 +12,19 @@ import { IShoppingCartItem } from '../models/shopping-cart-item';
 export class ProductCardComponent {
   @Input('product') product: Product = new Product();
   @Input('show-actions') showActions: boolean = true;
-  item$;
-  quantity: number;
+  cartItem$;
   
   constructor(private cartService: ShoppingCartService) {}
 
   async ngOnInit() {
-    this.item$ = await this.cartService.getItem(this.product.$key);    
+    this.cartItem$ = await this.cartService.getItem(this.product.$key);
   }
   
-  addToCart(product: IProduct) {
-    console.log('add');
-    this.cartService.addToCart(product);
+  addToCart() {
+    this.cartService.addToCart(this.product);
   }
 
-  removeFromCart(product: IProduct) {
-    console.log('reduce');
-    this.cartService.removeFromCart(product);
+  removeOneFromCart() {
+    this.cartService.removeOneFromCart(this.product);
   }
 }

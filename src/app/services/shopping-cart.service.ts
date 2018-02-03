@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/data
 import { IProduct } from '../models/product';
 import "rxjs/add/operator/take";
 import { IShoppingCartItem } from '../models/shopping-cart-item';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ShoppingCartService {
@@ -10,17 +11,37 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  private getCart(cartId) {
-    return this.db.object(this._baseUrl + cartId);
-  }
-
   async getItem(productId): Promise<FirebaseObjectObservable<IShoppingCartItem>> {
     let cartId = await this.getOrCreateCartId();
     return this.db.object(this._baseUrl + cartId + "/items/" + productId);
   }
+  
+  addToCart(product: IProduct) {
+    return this.updateItemQuantity(product, 1);
+  }
 
-  private getProductQuantity(productId) {
-    
+  removeOneFromCart(product: IProduct) {
+    return this.updateItemQuantity(product, -1);
+  }
+
+  async removeFromCart(product: IProduct) {
+    let items$ = await this.getItems();
+    items$.remove();
+  }
+
+  async clearCart() {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object(this._baseUrl + cartId + "/items/").remove()
+  }
+
+  private async getItems(): Promise<FirebaseObjectObservable<IShoppingCartItem[]>> {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object(this._baseUrl + cartId + "/items/");
+  }
+
+  async listItems(): Promise<Observable<IShoppingCartItem[]>> {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.list(this._baseUrl + cartId + "/items/");
   }
 
   private create() {
@@ -37,19 +58,16 @@ export class ShoppingCartService {
     localStorage.setItem('cartId', result.key);
     return result.key;
   }
-
-  addToCart(product: IProduct) {
-    return this.addToOrRemoveFromCart(product, 1);
-  }
-  removeFromCart(product: IProduct) {
-    return this.addToOrRemoveFromCart(product, -1);
-  }
   
-  async addToOrRemoveFromCart(product: IProduct, numOfItem) {
+  private async updateItemQuantity(product: IProduct, change: number) {
     let item$ = await this.getItem(product.$key);
     item$.take(1).subscribe(item => {
-      if ((item.quantity || 0) + numOfItem < 0) return;
-      item$.update({ product: product, quantity: (item.quantity || 0) + numOfItem })
+      let newQuantity = (item.quantity || 0) + change
+      if (newQuantity == 0) {
+        item$.remove();
+        return;
+      }
+      item$.update({ product: product, quantity: (item.quantity || 0) + change })
     });
   }
 }
