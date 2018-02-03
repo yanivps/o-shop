@@ -5,6 +5,13 @@
     <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
   </div>
   <div class="card-footer">
-    <button *ngIf="showActions" class="btn btn-primary btn-block" (click)='addToCart(product)'>Add to Cart</button>    
+    <div *ngIf="item$ | async as item; else singleButton">
+      <button (click)="removeFromCart(product)" class="cart-adder btn btn-primary float-left">-</button>      
+        {{item.quantity}} in cart
+      <button (click)="addToCart(product)" class="cart-adder btn btn-primary float-right">+</button>      
+    </div>
+    <ng-template #singleButton>
+      <button *ngIf="showActions" class="btn btn-primary btn-block" (click)='addToCart(product)'>Add to Cart</button>
+    </ng-template>
   </div>
 </div>

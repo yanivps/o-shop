@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { IProduct } from '../models/product';
 import "rxjs/add/operator/take";
+import { IShoppingCartItem } from '../models/shopping-cart-item';
 
 @Injectable()
 export class ShoppingCartService {
@@ -9,8 +10,17 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  private get(cartId) {
+  private getCart(cartId) {
     return this.db.object(this._baseUrl + cartId);
+  }
+
+  async getItem(productId): Promise<FirebaseObjectObservable<IShoppingCartItem>> {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object(this._baseUrl + cartId + "/items/" + productId);
+  }
+
+  private getProductQuantity(productId) {
+    
   }
 
   private create() {
@@ -19,7 +29,7 @@ export class ShoppingCartService {
     });
   }
 
-  private async getOrCreate() {
+  private async getOrCreateCartId() {
     let cartId = localStorage.getItem('cartId');
     if (cartId) return cartId;
 
@@ -28,15 +38,18 @@ export class ShoppingCartService {
     return result.key;
   }
 
-  private getItem(cartId, itemId) {
-    return this.db.object(this._baseUrl + cartId + "/items/" + itemId);
+  addToCart(product: IProduct) {
+    return this.addToOrRemoveFromCart(product, 1);
   }
-
-  async addToCart(product: IProduct) {
-    let cartId = await this.getOrCreate();    
-    let item$ = this.getItem(cartId, product.$key);
+  removeFromCart(product: IProduct) {
+    return this.addToOrRemoveFromCart(product, -1);
+  }
+  
+  async addToOrRemoveFromCart(product: IProduct, numOfItem) {
+    let item$ = await this.getItem(product.$key);
     item$.take(1).subscribe(item => {
-      item$.update({ product: product, quantity: (item.quantity || 0) + 1 })
+      if ((item.quantity || 0) + numOfItem < 0) return;
+      item$.update({ product: product, quantity: (item.quantity || 0) + numOfItem })
     });
   }
 }

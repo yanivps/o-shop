@@ -1,7 +1,12 @@
 .card-footer {
   padding: 0;
+  text-align: center
 }
 
 .card {
   margin-bottom: 30px;
+}
+
+.cart-adder {
+  width: 50px;
 }
