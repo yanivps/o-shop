@@ -22,6 +22,10 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.populateProducts();
+  }
+
+  populateProducts() {
     this.productService.list()
       .switchMap(products => {
         this.products = products;
@@ -29,10 +33,13 @@ export class ProductsComponent implements OnInit {
       })
       .subscribe(queryParam => {
         this.category = queryParam.get("category");
-
-        this.filteredProducts = this.category ?
-          this.products.filter(p => p.category == this.category) :
-          this.products;
+        this.applyFilter();
       })
+  }
+
+  applyFilter() {
+    this.filteredProducts = this.category ?
+      this.products.filter(p => p.category == this.category) :
+      this.products;
   }
 }

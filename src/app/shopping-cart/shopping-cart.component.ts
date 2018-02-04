@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { Observable } from 'rxjs/Observable';
 import { ShoppingCart } from '../models/shopping-cart';
-import { IProduct, Product } from '../models/product';
-import { Subscription } from 'rxjs/Subscription';
 import { IShoppingCartItem } from '../models/shopping-cart-item';
 
 @Component({
@@ -11,25 +9,14 @@ import { IShoppingCartItem } from '../models/shopping-cart-item';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit, OnDestroy {
-  cart: ShoppingCart
-  totalPrice: number;
-  subscription: Subscription;
+export class ShoppingCartComponent implements OnInit {
+  cart$: Observable<ShoppingCart>
 
   constructor(private cartService: ShoppingCartService) { 
   }
 
   async ngOnInit() {
-    let cart$ = await this.cartService.getCart();
-    this.subscription = cart$.subscribe(cart => {
-      this.cart = cart;
-      this.totalPrice = cart.items.map(item => item.totalPrice)
-        .reduce((sum, val) => sum + val, 0);
-    })
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.cart$ = await this.cartService.getCart();
   }
 
   addToCart(item: IShoppingCartItem) {

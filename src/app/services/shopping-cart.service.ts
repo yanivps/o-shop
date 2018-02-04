@@ -26,11 +26,11 @@ export class ShoppingCartService {
   }
   
   addToCart(product: IProduct | IShoppingCartItem) {
-    return this.updateItemQuantity(product, 1);
+    return this.updateItem(product, 1);
   }
 
   removeOneFromCart(product: IProduct | IShoppingCartItem) {
-    return this.updateItemQuantity(product, -1);
+    return this.updateItem(product, -1);
   }
 
   async removeFromCart(product: IProduct) {
@@ -63,7 +63,7 @@ export class ShoppingCartService {
     return result.key;
   }
   
-  private async updateItemQuantity(product: IProduct | IShoppingCartItem, change: number) {
+  private async updateItem(product: IProduct | IShoppingCartItem, change: number) {
     if (!product.$key) throw "Can not update quantity of product without id";
     let item$ = await this.getItem(product.$key);
     item$.take(1).subscribe(item => {
