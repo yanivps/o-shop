@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { IProduct } from '../models/product';
 import "rxjs/add/operator/take";
+import "rxjs/add/operator/map";
 import { IShoppingCartItem } from '../models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Injectable()
 export class ShoppingCartService {
@@ -11,6 +13,12 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
 
+  async getCart(): Promise<Observable<ShoppingCart>> {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object(this._baseUrl + cartId)
+      .map(cart => new ShoppingCart(cart.items));
+  }
+  
   async getItem(productId): Promise<FirebaseObjectObservable<IShoppingCartItem>> {
     let cartId = await this.getOrCreateCartId();
     return this.db.object(this._baseUrl + cartId + "/items/" + productId);
@@ -37,11 +45,6 @@ export class ShoppingCartService {
   private async getItems(): Promise<FirebaseObjectObservable<IShoppingCartItem[]>> {
     let cartId = await this.getOrCreateCartId();
     return this.db.object(this._baseUrl + cartId + "/items/");
-  }
-
-  async listItems(): Promise<Observable<IShoppingCartItem[]>> {
-    let cartId = await this.getOrCreateCartId();
-    return this.db.list(this._baseUrl + cartId + "/items/");
   }
 
   private create() {

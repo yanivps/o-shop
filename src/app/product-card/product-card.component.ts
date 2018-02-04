@@ -3,6 +3,7 @@ import { Product, IProduct } from '../models/product';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import "rxjs/add/operator/take";
 import { IShoppingCartItem } from '../models/shopping-cart-item';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'product-card',
@@ -12,7 +13,7 @@ import { IShoppingCartItem } from '../models/shopping-cart-item';
 export class ProductCardComponent {
   @Input('product') product: Product = new Product();
   @Input('show-actions') showActions: boolean = true;
-  cartItem$;
+  cartItem$: Observable<IShoppingCartItem>;
   
   constructor(private cartService: ShoppingCartService) {}
 
