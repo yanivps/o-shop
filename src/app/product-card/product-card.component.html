@@ -7,17 +7,9 @@
   <div *ngIf="showActions" class="card-footer">
     <ng-container *ngIf="cartItem$ | async as cartItem; else singleButton">
       <div *ngIf="cartItem.quantity; else singleButton">
-        <div class="row no-gutters">
-          <div class="col-2">
-            <button (click)="removeOneFromCart()" class="btn btn-secondary btn-block">-</button>
-          </div>
-          <div class="col text-center">
-             {{cartItem.quantity}} in cart
-          </div>
-          <div class="col-2">
-            <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
-          </div>
-        </div>
+        <incrementor (remove)="removeOneFromCart()" (add)="addToCart()">
+           {{cartItem.quantity}} in cart
+        </incrementor>
       </div>
     </ng-container>
     <ng-template #singleButton>

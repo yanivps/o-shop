@@ -33,6 +33,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCardComponent } from './product-card/product-card.component'
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { ShoppingCartCounterComponent } from './shopping-cart-counter/shopping-cart-counter.component';
+import { IncrementorComponent } from './incrementor/incrementor.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ShoppingCartCounterComponent } from './shopping-cart-counter/shopping-c
     ProductFilterComponent,
     ProductCardComponent,
     ShoppingCartCounterComponent,
+    IncrementorComponent,
   ],
   imports: [
     BrowserModule,

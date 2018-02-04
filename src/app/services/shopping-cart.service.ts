@@ -5,7 +5,7 @@ import "rxjs/add/operator/take";
 import "rxjs/add/operator/map";
 import { IShoppingCartItem } from '../models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
-import { ShoppingCart } from '../models/shopping-cart';
+import { ShoppingCart, IShoppingCart } from '../models/shopping-cart';
 
 @Injectable()
 export class ShoppingCartService {
@@ -20,15 +20,16 @@ export class ShoppingCartService {
   }
   
   async getItem(productId): Promise<FirebaseObjectObservable<IShoppingCartItem>> {
+    if (!productId) throw "productId can not be null";
     let cartId = await this.getOrCreateCartId();
     return this.db.object(this._baseUrl + cartId + "/items/" + productId);
   }
   
-  addToCart(product: IProduct) {
+  addToCart(product: IProduct | IShoppingCartItem) {
     return this.updateItemQuantity(product, 1);
   }
 
-  removeOneFromCart(product: IProduct) {
+  removeOneFromCart(product: IProduct | IShoppingCartItem) {
     return this.updateItemQuantity(product, -1);
   }
 
@@ -62,15 +63,17 @@ export class ShoppingCartService {
     return result.key;
   }
   
-  private async updateItemQuantity(product: IProduct, change: number) {
+  private async updateItemQuantity(product: IProduct | IShoppingCartItem, change: number) {
+    if (!product.$key) throw "Can not update quantity of product without id";
     let item$ = await this.getItem(product.$key);
     item$.take(1).subscribe(item => {
       let newQuantity = (item.quantity || 0) + change
-      if (newQuantity == 0) {
-        item$.remove();
-        return;
-      }
-      item$.update({ product: product, quantity: (item.quantity || 0) + change })
+      if (newQuantity <= 0) item$.remove();
+      else item$.update({
+          title: product.title,
+          price: product.price,
+          imageUrl: product.imageUrl,
+          quantity: (item.quantity || 0) + change })
     });
   }
 }
