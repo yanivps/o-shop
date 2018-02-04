@@ -15,7 +15,7 @@
         <tbody>
           <tr *ngFor="let item of cart.items">
             <td>
-              <div class="img-container">
+              <div class="thumbnail-container">
                 <div class="ratio img-responsive rounded-circle" [style.backgroundImage]="'url(' + item.imageUrl + ')'"></div>
               </div>
             </td>
@@ -39,5 +39,12 @@
       </table>
     </div>
   </div>
-  <button (click)='clearCart()' class="btn btn-danger btn-sm">Clear Shopping Cart</button>
+  <div *ngIf="cart.items.length > 0" class="row mb-3">
+    <div class="col">
+      <a routerLink="/check-out" class="btn btn-primary">Check Out</a>
+    </div>
+    <div class="col">
+      <button (click)='clearCart()' class="btn btn-danger btn-sm">Clear Shopping Cart</button>
+    </div>
+  </div>
 </ng-container>

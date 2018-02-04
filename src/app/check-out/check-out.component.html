@@ -1,3 +1,46 @@
-<p>
-  check-out works!
-</p>
+<h2>Shipping</h2>
+<div *ngIf="cart" class="row">
+  <div class="col-lg-6">
+    <form #f="ngForm" (ngSubmit)='saveOrder()'>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="order.name" name="name" id="name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="address1">Address</label>
+        <input type="text" [(ngModel)]="order.address1" name="address1" id="address1" class="form-control" placeholder="Line 1" required>
+      </div>
+      <div class="form-group">
+        <label for="address2"></label>
+        <input type="text" id="address2" [(ngModel)]="order.address2" name="address2" class="form-control" placeholder="Line 2">
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" [(ngModel)]="order.city" name="city" id="city" class="form-control" required>
+      </div>
+      <button class="btn btn-primary" [disabled]="f.invalid">Place Order</button>
+    </form>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Order Summary</h4>
+        <p class="card-text">You have {{ cart.totalItemsCount }} items in your shopping cart.</p>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let item of cart.items">
+              <td>{{ item.quantity }} x {{ item.title }}</td>
+              <td class="text-right">{{ item.totalPrice | currency:'USD':'symbol':'1.2-2' }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <th class="text-right">{{ cart.totalPrice | currency:'USD':'symbol':'1.2-2' }}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

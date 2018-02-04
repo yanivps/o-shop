@@ -26,7 +26,26 @@ body {
   padding: .5rem .75rem;
 }
 
-#productsGrid .refresh-button, 
-#productsGrid .column-selector-button {
+#productsGrid .refresh-button, #productsGrid .column-selector-button {
   display: none;
+}
+
+.thumbnail-container {
+  width: 75px;
+}
+
+.ratio {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.img-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
 }

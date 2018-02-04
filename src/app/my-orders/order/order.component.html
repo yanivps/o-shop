@@ -1,0 +1,50 @@
+<ng-container *ngIf="order$ | async as order">
+  <h2>Shipping information</h2>
+  <div class="card mb-4">
+    <div class="card-body">
+      <!-- <h4 class="card-title">Order Summary</h4> -->
+      <div class="card-text">
+        <dl class="row">
+          <dt class="col-sm-3">Name</dt>
+          <dd class="col-sm-9">{{ order.name }}</dd>
+          <dt class="col-sm-3">Address</dt>
+          <dd class="col-sm-9">{{ order.address1 }}
+            <br>{{ order.address2 }}</dd>
+          <dt class="col-sm-3">City</dt>
+          <dd class="col-sm-9">{{ order.city }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <h2>Items</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th class="text-right">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of order.items">
+        <td>
+          <div class="thumbnail-container">
+            <div class="ratio img-responsive rounded-circle" [style.backgroundImage]="'url(' + item.imageUrl + ')'"></div>
+          </div>
+        </td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.quantity }}</td>
+        <td class="text-right">{{ item.totalPrice | currency:'USD':'symbol':'1.2-2' }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th class="text-right">{{ order.totalPrice | currency:'USD':'symbol':'1.2-2' }}</th>
+      </tr>
+    </tfoot>
+  </table>
+</ng-container>
