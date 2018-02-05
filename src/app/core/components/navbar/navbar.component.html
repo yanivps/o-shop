@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light" [class.fixed-top]=fixedToTop>
-  <a class="navbar-brand" routerLink="/">O</a>
+  <a class="navbar-brand" routerLink="/">
+    <i class="fa fa-leaf" aria-hidden="true"></i>
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,7 +11,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
         <a routerLink="/shopping-cart" class="nav-link">
-           Shopping Cart <shopping-cart-counter></shopping-cart-counter>
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i> <shopping-cart-counter></shopping-cart-counter>
         </a>
       </li>
       <ng-template #annonymousUser>
