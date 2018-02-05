@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Observable } from 'rxjs/Observable';
+import "rxjs/add/operator/switchMap";
 import { Order } from '../models/order';
 import { AuthService } from '../services/auth.service';
 
@@ -16,8 +17,8 @@ export class MyOrdersComponent {
     authService: AuthService,
     orderService: OrderService
   ) {
-    authService.authUser$.subscribe(user => {
-      this.orders$ = orderService.list(user.uid);      
-    });
+    authService.authUser$.switchMap(user => 
+      this.orders$ = orderService.list(user.uid)
+    );
   }
 }

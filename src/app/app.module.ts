@@ -36,6 +36,8 @@ import { ShoppingCartCounterComponent } from './shopping-cart-counter/shopping-c
 import { IncrementorComponent } from './incrementor/incrementor.component';
 import { OrderService } from './services/order.service';
 import { OrderComponent } from './my-orders/order/order.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { OrderComponent } from './my-orders/order/order.component';
     ShoppingCartCounterComponent,
     IncrementorComponent,
     OrderComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent,
   ],
   imports: [
     BrowserModule,
