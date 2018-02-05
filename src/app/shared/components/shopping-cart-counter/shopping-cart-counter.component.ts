@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { IShoppingCartItem } from '../../models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
-import { ShoppingCart, IShoppingCart } from '../../models/shopping-cart';
+import { ShoppingCart } from '../../models/shopping-cart';
 
 @Component({
   selector: 'shopping-cart-counter',

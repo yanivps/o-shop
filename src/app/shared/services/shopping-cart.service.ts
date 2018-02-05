@@ -5,7 +5,7 @@ import "rxjs/add/operator/take";
 import "rxjs/add/operator/map";
 import { IShoppingCartItem } from '../models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
-import { ShoppingCart, IShoppingCart } from '../models/shopping-cart';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Injectable()
 export class ShoppingCartService {

@@ -1,14 +1,7 @@
 import { IShoppingCartItem, ShoppingCartItem } from "./shopping-cart-item";
 import { Product } from "./product";
 
-export interface IShoppingCart {
-  items: IShoppingCartItem[];
-  readonly totalItemsCount: number;
-  getItem(product: Product): ShoppingCartItem;
-  readonly totalPrice: number;
-}
-
-export class ShoppingCart implements IShoppingCart {
+export class ShoppingCart {
   items: IShoppingCartItem[];
 
   constructor(private itemsMap: {[productId: string]: IShoppingCartItem}) {
@@ -38,3 +31,4 @@ export class ShoppingCart implements IShoppingCart {
     return totalItemsCount;
   }
 }
+
