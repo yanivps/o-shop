@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IncrementorComponent } from 'shared/components/incrementor/incrementor.component';
+import { OrderComponent } from 'shared/components/order/order.component';
 import { ProductCardComponent } from 'shared/components/product-card/product-card.component';
 import { AuthGuard } from 'shared/services/auth-guard.service';
 import { AuthService } from 'shared/services/auth.service';
@@ -16,11 +17,12 @@ import { UserService } from 'shared/services/user.service';
   ],
   declarations: [
     ProductCardComponent,
-    IncrementorComponent
+    IncrementorComponent,
+    OrderComponent
   ],
   exports: [
     ProductCardComponent,
-    IncrementorComponent
+    IncrementorComponent,
   ],
   providers: [
     AuthService,

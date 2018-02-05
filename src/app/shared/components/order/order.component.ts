@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../shared/services/order.service';
+import { OrderService } from '../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Order } from '../../shared/models/order';
+import { Order } from '../../models/order';
 
 @Component({
   selector: 'app-order',
