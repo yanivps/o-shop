@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingCartService } from '../services/shopping-cart.service';
-import { IShoppingCartItem } from '../models/shopping-cart-item';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
+import { IShoppingCartItem } from '../shared/models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
-import { ShoppingCart, IShoppingCart } from '../models/shopping-cart';
+import { ShoppingCart, IShoppingCart } from '../shared/models/shopping-cart';
 
 @Component({
   selector: 'shopping-cart-counter',

@@ -3,11 +3,11 @@ import { NgModel } from '@angular/forms';
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/combineLatest";
 import { Subscription } from 'rxjs/Subscription';
-import { IProduct, Product, IProductCategory } from '../../../models/product';
+import { IProduct, Product, IProductCategory } from '../../../shared/models/product';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../../../services/product.service';
+import { ProductService } from '../../../shared/services/product.service';
 import { Observable } from 'rxjs/Observable';
-import { CategoryService } from '../../../services/category.service';
+import { CategoryService } from '../../../shared/services/category.service';
 
 @Component({
   selector: 'app-product-form',

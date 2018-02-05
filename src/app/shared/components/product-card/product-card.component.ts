@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Product, IProduct } from '../models/product';
-import { ShoppingCartService } from '../services/shopping-cart.service';
+import { Product, IProduct } from '../../models/product';
+import { ShoppingCartService } from '../../services/shopping-cart.service';
 import "rxjs/add/operator/take";
 import { Observable } from 'rxjs/Observable';
-import { IShoppingCart } from '../models/shopping-cart';
-import { IShoppingCartItem } from '../models/shopping-cart-item';
+import { IShoppingCart } from '../../models/shopping-cart';
+import { IShoppingCartItem } from '../../models/shopping-cart-item';
 
 @Component({
   selector: 'product-card',
