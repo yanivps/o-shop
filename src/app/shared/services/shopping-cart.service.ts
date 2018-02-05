@@ -6,10 +6,12 @@ import "rxjs/add/operator/map";
 import { IShoppingCartItem } from '../models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
 import { ShoppingCart } from '../models/shopping-cart';
+import { Thenable } from 'firebase/app';
 
 @Injectable()
 export class ShoppingCartService {
   private _baseUrl: string = "/shopping-carts/"
+  private createPromise: Thenable<any>
 
   constructor(private db: AngularFireDatabase) { }
 
@@ -51,14 +53,18 @@ export class ShoppingCartService {
       dateCreated: new Date().getTime()
     });
   }
-
-  private async getOrCreateCartId() {
+  
+  private getOrCreateCartId() {
     let cartId = localStorage.getItem('cartId');
-    if (cartId) return cartId;
+    if (cartId) return Promise.resolve(cartId);
 
-    let result = await this.create();
-    localStorage.setItem('cartId', result.key);
-    return result.key;
+    if (this.createPromise) return this.createPromise.then(result => result.key);
+
+    this.createPromise = this.create();
+    this.createPromise.then(result => {
+      localStorage.setItem('cartId', result.key);
+    })
+    return this.createPromise.then(result => result.key);
   }
   
   private async updateItem(product: IProduct | IShoppingCartItem, change: number) {
