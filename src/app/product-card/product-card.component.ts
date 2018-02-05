@@ -2,8 +2,9 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { Product, IProduct } from '../models/product';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import "rxjs/add/operator/take";
-import { IShoppingCartItem } from '../models/shopping-cart-item';
 import { Observable } from 'rxjs/Observable';
+import { IShoppingCart } from '../models/shopping-cart';
+import { IShoppingCartItem } from '../models/shopping-cart-item';
 
 @Component({
   selector: 'product-card',
@@ -13,12 +14,12 @@ import { Observable } from 'rxjs/Observable';
 export class ProductCardComponent {
   @Input('product') product: Product = new Product();
   @Input('show-actions') showActions: boolean = true;
-  cartItem$: Observable<IShoppingCartItem>;
+  @Input('cart') cart: IShoppingCart;
   
   constructor(private cartService: ShoppingCartService) {}
 
-  async ngOnInit() {
-    this.cartItem$ = await this.cartService.getItem(this.product.$key);
+  get item() {
+    return this.cart.getItem(this.product);
   }
   
   addToCart() {

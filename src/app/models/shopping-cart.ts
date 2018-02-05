@@ -1,20 +1,27 @@
 import { IShoppingCartItem, ShoppingCartItem } from "./shopping-cart-item";
+import { Product } from "./product";
 
 export interface IShoppingCart {
   items: IShoppingCartItem[];
   readonly totalItemsCount: number;
+  getItem(product: Product): ShoppingCartItem;
   readonly totalPrice: number;
 }
 
 export class ShoppingCart implements IShoppingCart {
   items: IShoppingCartItem[];
 
-  constructor(itemsMap: {[productId: string]: IShoppingCartItem}) {
+  constructor(private itemsMap: {[productId: string]: IShoppingCartItem}) {
+    this.itemsMap = itemsMap || {};
     this.items = [];
     for (const productId in itemsMap) {
       let item: IShoppingCartItem = itemsMap[productId];
       this.items.push(new ShoppingCartItem({ ...item, $key: productId }));
     }
+  }
+
+  getItem(product: Product): ShoppingCartItem {
+    return this.itemsMap[product.$key];
   }
 
   get totalPrice(): number {

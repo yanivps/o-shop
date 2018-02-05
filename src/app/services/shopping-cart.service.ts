@@ -19,12 +19,6 @@ export class ShoppingCartService {
       .map(cart => new ShoppingCart(cart.items));
   }
   
-  async getItem(productId): Promise<FirebaseObjectObservable<IShoppingCartItem>> {
-    if (!productId) throw "productId can not be null";
-    let cartId = await this.getOrCreateCartId();
-    return this.db.object(this._baseUrl + cartId + "/items/" + productId);
-  }
-  
   addToCart(product: IProduct | IShoppingCartItem) {
     return this.updateItem(product, 1);
   }
@@ -34,7 +28,8 @@ export class ShoppingCartService {
   }
 
   async removeFromCart(product: IProduct) {
-    let items$ = await this.getItems();
+    let cartId = await this.getOrCreateCartId();
+    let items$ = this.getItems(cartId);
     items$.remove();
   }
 
@@ -43,8 +38,11 @@ export class ShoppingCartService {
     return this.db.object(this._baseUrl + cartId + "/items/").remove()
   }
 
-  private async getItems(): Promise<FirebaseObjectObservable<IShoppingCartItem[]>> {
-    let cartId = await this.getOrCreateCartId();
+  private getItem(cartId: string, productId: string) {
+    return this.db.object(this._baseUrl + cartId + "/items/" + productId);
+  }
+
+  private getItems(cartId: string) {
     return this.db.object(this._baseUrl + cartId + "/items/");
   }
 
@@ -65,7 +63,8 @@ export class ShoppingCartService {
   
   private async updateItem(product: IProduct | IShoppingCartItem, change: number) {
     if (!product.$key) throw "Can not update quantity of product without id";
-    let item$ = await this.getItem(product.$key);
+    let cartId = await this.getOrCreateCartId();
+    let item$ = this.getItem(cartId, product.$key);
     item$.take(1).subscribe(item => {
       let newQuantity = (item.quantity || 0) + change
       if (newQuantity <= 0) item$.remove();

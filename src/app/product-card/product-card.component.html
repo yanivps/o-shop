@@ -4,13 +4,11 @@
     <h4 class="card-title">{{product.title}}</h4>
     <p class="card-text">{{product.price | currency:'USD':'symbol':'1.2-2'}}</p>
   </div>
-  <div *ngIf="showActions" class="card-footer">
-    <ng-container *ngIf="cartItem$ | async as cartItem; else singleButton">
-      <div *ngIf="cartItem.quantity; else singleButton">
-        <incrementor (remove)="removeOneFromCart()" (add)="addToCart()">
-           {{cartItem.quantity}} in cart
-        </incrementor>
-      </div>
+  <div *ngIf="showActions && cart" class="card-footer">
+    <ng-container *ngIf="item && item.quantity; else singleButton">
+      <incrementor (remove)="removeOneFromCart()" (add)="addToCart()">
+          {{item.quantity}} in cart
+      </incrementor>
     </ng-container>
     <ng-template #singleButton>
       <button class="btn btn-secondary btn-block" (click)='addToCart()'>Add to Cart</button>

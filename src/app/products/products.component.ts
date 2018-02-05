@@ -5,6 +5,8 @@ import { ProductService } from '../services/product.service';
 import { Observable } from 'rxjs/Observable';
 import { IProduct } from '../models/product';
 import "rxjs/add/operator/switchMap";
+import { ShoppingCartService } from '../services/shopping-cart.service';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
   selector: 'app-products',
@@ -14,14 +16,17 @@ import "rxjs/add/operator/switchMap";
 export class ProductsComponent implements OnInit {
   products: IProduct[];
   filteredProducts: IProduct[];
+  cart$: Observable<ShoppingCart>
   category;
 
   constructor(
     private productService: ProductService,
+    private cartService: ShoppingCartService,
     private route: ActivatedRoute) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.cart$ = await this.cartService.getCart();
     this.populateProducts();
   }
 

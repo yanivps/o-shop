@@ -6,11 +6,11 @@
     <ng-template #noProducts>
       <h1>No items</h1>
     </ng-template>
-    <ng-container *ngIf="filteredProducts">
-      <ng-container *ngIf="filteredProducts.length; else noProducts">
+    <ng-container *ngIf="cart$ | async as cart">
+      <ng-container *ngIf="filteredProducts && filteredProducts.length; else noProducts">
         <div class="row">
           <div *ngFor="let product of filteredProducts" class="col-md-6">
-            <product-card [product]="product"></product-card>
+            <product-card [cart]="cart" [product]="product"></product-card>
           </div>
         </div>
       </ng-container>
