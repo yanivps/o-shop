@@ -1,52 +1,59 @@
 <h1>Shopping Cart</h1>
 <ng-container *ngIf="cart$ | async as cart">
-  <p>
-    You have {{ cart.totalItemsCount }} items in your shopping cart.
-    <button 
-      *ngIf="cart.items.length"
-      (click)='clearCart()' 
-      class="btn btn-light btn-sm">Clear Shopping Cart</button>    
-  </p>
   <div class="row">
     <div class="col-lg-9">
-      <table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Product</th>
-            <th class="text-center">Quantity</th>
-            <th class="text-right">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of cart.items">
-            <td>
-              <div class="thumbnail-container">
-                <div class="ratio img-responsive rounded-circle" [style.backgroundImage]="'url(' + item.imageUrl + ')'"></div>
-              </div>
-            </td>
-            <td>{{ item.title }}</td>
-            <td>
-              <incrementor (remove)="removeOneFromCart(item)" (add)="addToCart(item)">
-                {{ item.quantity }} in cart
-              </incrementor>
-            </td>
-            <td class="text-right">{{ item.totalPrice | currency:'USD':'symbol':'1.2-2' }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th class="text-right">{{ cart.totalPrice | currency:'USD':'symbol':'1.2-2' }}</th>
-          </tr>
-        </tfoot>
-      </table>
+      <div class="card">
+        <div class="card-body">
+          <p>
+            You have {{ cart.totalItemsCount }} items in your shopping cart.
+            <button 
+              *ngIf="cart.items.length"
+              (click)='clearCart()' 
+              class="float-right btn btn-light btn-sm">Clear Shopping Cart</button>    
+          </p>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Product</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-right">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cart.items">
+              <td>
+                <div class="thumbnail-container">
+                  <div class="ratio img-responsive rounded-circle" [style.backgroundImage]="'url(' + item.imageUrl + ')'"></div>
+                </div>
+              </td>
+              <td>{{ item.title }}</td>
+              <td>
+                <incrementor (remove)="removeOneFromCart(item)" (add)="addToCart(item)">
+                  {{ item.quantity }} in cart
+                </incrementor>
+              </td>
+              <td class="text-right">{{ item.totalPrice | currency:'USD':'symbol':'1.2-2' }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th class="text-right">{{ cart.totalPrice | currency:'USD':'symbol':'1.2-2' }}</th>
+            </tr>
+            <tr>
+              <th colspan="4">
+                  <a *ngIf="cart.items.length"
+                    routerLink="/check-out" 
+                    class="btn btn-primary">Check Out</a>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
-  <a 
-    *ngIf="cart.items.length"
-    routerLink="/check-out" 
-    class="btn btn-primary">Check Out</a>
 </ng-container>

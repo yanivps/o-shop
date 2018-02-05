@@ -50,3 +50,8 @@ body {
   height: auto;
   max-width: 100%;
 }
+
+.navbar {
+  border-bottom: 3px solid #e6e5e5;
+}
+

@@ -1,19 +1,61 @@
 <form #f="ngForm" (ngSubmit)='saveOrder()'>
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" [(ngModel)]="shipping.name" name="name" id="name" class="form-control" required>
+    <input 
+      type="text" 
+      [(ngModel)]="shipping.name" 
+      name="name" 
+      #name="ngModel"
+      id="name" 
+      class="form-control" 
+      required>
+      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+        Name is required
+      </div>
   </div>
   <div class="form-group">
     <label for="address1">Address</label>
-    <input type="text" [(ngModel)]="shipping.address1" name="address1" id="address1" class="form-control" placeholder="Line 1" required>
+    <input 
+      type="text" 
+      [(ngModel)]="shipping.address1" 
+      name="address1" 
+      #address1="ngModel"
+      id="address1" 
+      class="form-control" 
+      placeholder="Line 1"
+      required>
+      <div *ngIf="address1.touched && address1.invalid" class="alert alert-danger">
+        Address Line 1 is required
+      </div>
   </div>
   <div class="form-group">
     <label for="address2"></label>
-    <input type="text" id="address2" [(ngModel)]="shipping.address2" name="address2" class="form-control" placeholder="Line 2">
+    <input 
+      type="text" 
+      id="address2" 
+      [(ngModel)]="shipping.address2" 
+      name="address2" 
+      #address2="ngModel"
+      class="form-control" 
+      placeholder="Line 2"
+      required>
+      <div *ngIf="address2.touched && address2.invalid" class="alert alert-danger">
+        Address Line 2 is required
+      </div>
   </div>
   <div class="form-group">
     <label for="city">City</label>
-    <input type="text" [(ngModel)]="shipping.city" name="city" id="city" class="form-control" required>
+    <input 
+      type="text" 
+      [(ngModel)]="shipping.city" 
+      name="city" 
+      #city="ngModel"
+      id="city" 
+      class="form-control" 
+      required>
+      <div *ngIf="city.touched && city.invalid" class="alert alert-danger">
+        City is required
+      </div>
   </div>
   <button class="btn btn-primary" [disabled]="f.invalid">Place Order</button>
 </form>
