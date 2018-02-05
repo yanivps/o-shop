@@ -6,7 +6,6 @@ import { OrderSuccessComponent } from 'app/shopping/components/order-success/ord
 import { ProductFilterComponent } from 'app/shopping/components/products/product-filter/product-filter.component';
 import { ProductsComponent } from 'app/shopping/components/products/products.component';
 import { ShippingFormComponent } from 'app/shopping/components/shipping-form/shipping-form.component';
-import { ShoppingCartCounterComponent } from 'app/shopping/components/shopping-cart-counter/shopping-cart-counter.component';
 import { ShoppingCartSummaryComponent } from 'app/shopping/components/shopping-cart-summary/shopping-cart-summary.component';
 import { ShoppingCartComponent } from 'app/shopping/components/shopping-cart/shopping-cart.component';
 import { SharedModule } from 'shared/shared.module';
@@ -35,12 +34,8 @@ import { FormsModule } from '@angular/forms';
     OrderSuccessComponent,
     MyOrdersComponent,
     ProductFilterComponent,
-    ShoppingCartCounterComponent,
     ShoppingCartSummaryComponent,
     ShippingFormComponent
-  ],
-  exports: [
-    ShoppingCartCounterComponent
   ]
 })
 export class ShoppingModule { }

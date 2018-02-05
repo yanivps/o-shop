@@ -10,6 +10,7 @@ import { OrderService } from 'shared/services/order.service';
 import { ProductService } from 'shared/services/product.service';
 import { ShoppingCartService } from 'shared/services/shopping-cart.service';
 import { UserService } from 'shared/services/user.service';
+import { ShoppingCartCounterComponent } from 'shared/components/shopping-cart-counter/shopping-cart-counter.component';
 
 @NgModule({
   imports: [
@@ -18,11 +19,13 @@ import { UserService } from 'shared/services/user.service';
   declarations: [
     ProductCardComponent,
     IncrementorComponent,
-    OrderComponent
+    OrderComponent,
+    ShoppingCartCounterComponent
   ],
   exports: [
     ProductCardComponent,
     IncrementorComponent,
+    ShoppingCartCounterComponent
   ],
   providers: [
     AuthService,
