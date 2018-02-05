@@ -1,12 +1,21 @@
-import { Item, IItem } from "./item";
-
-export interface IShoppingCartItem extends IItem {
+export interface IShoppingCartItem {
+  $key: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+  readonly totalPrice: number;
 }
 
-export class ShoppingCartItem extends Item implements IShoppingCartItem {
-  
+export class ShoppingCartItem implements IShoppingCartItem {
+  $key: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+
   constructor(item?: IShoppingCartItem) {
-    super(item);
+    Object.assign(this, item);
   }
 
   get totalPrice(): number {

@@ -9,7 +9,7 @@ import { Order } from '../../models/order';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent {
   order$: Observable<Order>
   
   constructor(
@@ -19,8 +19,4 @@ export class OrderComponent implements OnInit {
     let orderId = route.snapshot.paramMap.get('id');
     this.order$ = orderService.get(orderId);
   }
-
-  ngOnInit() {
-  }
-
 }

@@ -4,7 +4,6 @@ import { Order } from '../models/order';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/fromPromise";
 import { AuthService } from './auth.service';
-import { IOrderItem } from '../models/order-item';
 import { ShoppingCartService } from './shopping-cart.service';
 
 @Injectable()
@@ -27,35 +26,12 @@ export class OrderService {
   }
 
   get(orderId: string): Observable<Order> {
-    return this.db.object(this._baseUrl + orderId)
-      .map(order => new Order(order.items, order));
+    return this.db.object(this._baseUrl + orderId);
   }
 
-  create(order: Order) {
-    let datetime = new Date().getTime();
-    let itemsMap = this.getItemsMapFromOrder(order);
-    let { items, ...orderObj } = order;
-    
-    return this.authService.authUser$
-      .switchMap(user => {
-        this.cartService.clearCart();
-        return Observable.fromPromise(
-          this.db.list(this._baseUrl).push({
-            dateCreated: datetime, 
-            userId: user.uid, 
-            items: itemsMap,
-            ...orderObj
-          })
-        );
-      });
-  }
-  
-  private getItemsMapFromOrder(order: Order) {
-    let itemsMap = {};
-    for (const orderItem of order.items) {
-      let { $key, ...item } = orderItem;
-      itemsMap[orderItem.$key] = item
-    }
-    return itemsMap;
+  async placeOrder(order: Order) {
+    let result = await this.db.list(this._baseUrl).push(order);
+    this.cartService.clearCart();
+    return result;
   }
 }

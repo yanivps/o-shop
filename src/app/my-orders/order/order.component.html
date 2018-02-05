@@ -6,12 +6,12 @@
       <div class="card-text">
         <dl class="row">
           <dt class="col-sm-3">Name</dt>
-          <dd class="col-sm-9">{{ order.name }}</dd>
+          <dd class="col-sm-9">{{ order.shipping.name }}</dd>
           <dt class="col-sm-3">Address</dt>
-          <dd class="col-sm-9">{{ order.address1 }}
-            <br>{{ order.address2 }}</dd>
+          <dd class="col-sm-9">{{ order.shipping.address1 }}
+            <br>{{ order.shipping.address2 }}</dd>
           <dt class="col-sm-3">City</dt>
-          <dd class="col-sm-9">{{ order.city }}</dd>
+          <dd class="col-sm-9">{{ order.shipping.city }}</dd>
         </dl>
       </div>
     </div>
@@ -30,10 +30,10 @@
       <tr *ngFor="let item of order.items">
         <td>
           <div class="thumbnail-container">
-            <div class="ratio img-responsive rounded-circle" [style.backgroundImage]="'url(' + item.imageUrl + ')'"></div>
+            <div class="ratio img-responsive rounded-circle" [style.backgroundImage]="'url(' + item.product.imageUrl + ')'"></div>
           </div>
         </td>
-        <td>{{ item.title }}</td>
+        <td>{{ item.product.title }}</td>
         <td>{{ item.quantity }}</td>
         <td class="text-right">{{ item.totalPrice | currency:'USD':'symbol':'1.2-2' }}</td>
       </tr>
